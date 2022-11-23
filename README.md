@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# CandyMachine UI
 
 This project is UI part of the candymachine.
 
