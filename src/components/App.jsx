@@ -31,8 +31,13 @@ export default function App() {
     public_sale_mint_price: 1,
     public_sale_mint_time: 1668142066,
   });
-  console.log("this is infooooooooo", info);
+  console.log("this is info", info);
 
+  useEffect(() => {
+    setInterval(() => {
+      checkCandymachine();
+    }, 5000);
+  }, []);
   useEffect(() => {
     if (candyMachine !== null) {
       checkMintStatus();
@@ -55,7 +60,7 @@ export default function App() {
 
   let toDisplay;
   if (walletConnected) {
-    toDisplay = <Mint mintStart={mintStart} mint={mint} />;
+    toDisplay = <Mint mintStart={mintStart} mint={mint} sold={sold} />;
   } else {
     toDisplay = (
       <Wallet
@@ -82,8 +87,9 @@ export default function App() {
       return 0;
     }
   }
-  setInterval(checkCandymachine, 5000);
+
   async function checkCandymachine() {
+    console.log("checkcandymachine calledddddddddd");
     try {
       let candys = await client.getAccountResources(
         process.env.REACT_APP_RESOURCE_ACCOUNT
@@ -114,7 +120,7 @@ export default function App() {
         setWhitelist(candys[2].data.whitelist);
       }
 
-      console.log("candymachine::::", candyMachine);
+      // console.log("candymachine::::", candyMachine);
     } catch (e) {
       console.log(e);
     }
